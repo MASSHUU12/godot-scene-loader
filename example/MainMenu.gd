@@ -2,11 +2,13 @@ extends Node2D
 
 
 func _ready() -> void:
-	pass
+	SceneLoader.set_configuration({
+		"scene1": "res://example/scenes/scene1/Scene1.tscn"
+	})
 
 
 func _on_start_pressed() -> void:
-	pass # Replace with function body.
+	SceneLoader.load_scene(self, "scene1")
 
 
 func _on_exit_pressed() -> void:
