@@ -3,7 +3,8 @@ extends Node2D
 
 func _ready() -> void:
 	SceneLoader.set_configuration({
-		"scene1": "res://example/scenes/scene1/Scene1.tscn"
+		"scene1": "res://example/scenes/scene1/Scene1.tscn",
+		"main_menu": "res://example/MainMenu.tscn"
 	})
 
 
