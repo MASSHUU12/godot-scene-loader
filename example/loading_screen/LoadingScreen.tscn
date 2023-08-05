@@ -82,6 +82,21 @@ _data = {
 "fade_out": SubResource("Animation_lhrmh")
 }
 
+[sub_resource type="Animation" id="Animation_ny4cq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/Background:texture:noise:seed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_l2iiv"]
 resource_name = "noise"
 length = 3.0
@@ -97,21 +112,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 2,
 "values": [0, 48]
-}
-
-[sub_resource type="Animation" id="Animation_ny4cq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Container/Background:texture:noise:seed")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1pp8q"]

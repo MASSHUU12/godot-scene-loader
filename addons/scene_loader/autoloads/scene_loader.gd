@@ -1,11 +1,13 @@
 extends Node
 
 var scenes: Dictionary = {}
+var path_to_progress_bar: String = "Container/ProgressBar"
 var loading_screen: Resource  = preload("res://addons/scene_loader/default_loading_screen/DefaultLoadingScreen.tscn")
 
 
-func set_configuration(_scenes: Dictionary, _loading_screen: String = "") -> void:
+func set_configuration(_scenes: Dictionary, _path_to_progress_bar, _loading_screen: String = "") -> void:
 	scenes = _scenes
+	path_to_progress_bar = _path_to_progress_bar
 
 	if _loading_screen != "":
 		loading_screen = load(_loading_screen)
@@ -49,7 +51,7 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 				print("ERR: Can not load the resource")
 				return
 			1: # THREAD_LOAD_IN_PROGRESS
-				loading_screen_instance.get_node("Control/ProgressBar").value = load_progress[0]
+				loading_screen_instance.get_node(path_to_progress_bar).value = load_progress[0]
 			2: # THREAD_LOAD_FAILED
 				print("ERR: Loading failed")
 				return
