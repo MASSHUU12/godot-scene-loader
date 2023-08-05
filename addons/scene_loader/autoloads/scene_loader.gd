@@ -4,9 +4,11 @@ var scenes: Dictionary = {}
 var loading_screen: Resource  = preload("res://addons/scene_loader/default_loading_screen/DefaultLoadingScreen.tscn")
 
 
-func set_configuration(_scenes: Dictionary, _loading_screen: String) -> void:
+func set_configuration(_scenes: Dictionary, _loading_screen: String = "") -> void:
 	scenes = _scenes
-	loading_screen = load(_loading_screen)
+
+	if _loading_screen != "":
+		loading_screen = load(_loading_screen)
 
 
 func load_scene(current_scene: Node, next_scene: String) -> void:
