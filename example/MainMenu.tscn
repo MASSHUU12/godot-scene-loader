@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgg7tdb3xlmg1"]
+
+[ext_resource type="Script" path="res://example/MainMenu.gd" id="1_r4jk3"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_r4jk3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_top = 64.0
+offset_right = 175.0
+offset_bottom = 155.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+text = "Main Menu"
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start" type="Button" parent="CanvasLayer/Control/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Start"
+
+[node name="Exit" type="Button" parent="CanvasLayer/Control/Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Exit"
+
+[connection signal="pressed" from="CanvasLayer/Control/Buttons/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Buttons/Exit" to="." method="_on_exit_pressed"]
