@@ -8,3 +8,5 @@ All notable changes to this project will be documented in this file.
 
 - Better display of errors.
 - Code refactoring.
+- Updated the example.
+- Updated the documentation.
