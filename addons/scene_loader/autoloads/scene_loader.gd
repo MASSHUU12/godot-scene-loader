@@ -44,7 +44,12 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 				return
 			1: # THREAD_LOAD_IN_PROGRESS
 				if path_to_progress_bar != "":
-					loading_screen_instance.get_node(path_to_progress_bar).value = load_progress[0]
+					var progress_bar := loading_screen_instance.get_node(path_to_progress_bar)
+
+					if progress_bar == null:
+						printerr("Path to progress bar is invalid.")
+					else:
+						progress_bar.value = load_progress[0]
 			2: # THREAD_LOAD_FAILED
 				printerr("Loading failed.")
 				return
