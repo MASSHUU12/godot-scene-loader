@@ -7,3 +7,4 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Better display of errors.
+- Code refactoring.

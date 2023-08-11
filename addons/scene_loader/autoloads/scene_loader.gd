@@ -5,7 +5,7 @@ var path_to_progress_bar: String = "Container/ProgressBar"
 var loading_screen: Resource  = preload("res://addons/scene_loader/default_loading_screen/DefaultLoadingScreen.tscn")
 
 
-func set_configuration(_scenes: Dictionary, _path_to_progress_bar = "", _loading_screen: String = "") -> void:
+func set_configuration(_scenes: Dictionary, _path_to_progress_bar := "", _loading_screen := "") -> void:
 	scenes = _scenes
 	path_to_progress_bar = _path_to_progress_bar
 
@@ -19,24 +19,16 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 	get_tree().get_root().call_deferred("add_child", loading_screen_instance)
 
 	# Find path to the scene file
-	var path: String
-	if scenes.has(next_scene):
-		path = scenes[next_scene]
-	else:
-		path = next_scene
-
-	var loader
+	var path: String = scenes[next_scene] if scenes.has(next_scene) else next_scene
 
 	# Validate path
-	if ResourceLoader.exists(path):
-		# Load scene
-		loader = ResourceLoader.load_threaded_request(path)
-	else:
-		printerr("Scene %s does not exist" % path)
+	if not ResourceLoader.exists(path):
+		printerr("Scene %s does not exist." % path)
 		return
 
-	if loader == null:
-		printerr("Scene %s does not exist" % path)
+	# Load scene
+	if ResourceLoader.load_threaded_request(path) != OK:
+		printerr("Scene %s does not exist." % path)
 		return
 
 	await loading_screen_instance.safe_to_load
@@ -48,13 +40,13 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 
 		match load_status:
 			0: # THREAD_LOAD_INVALID_RESOURCE
-				printerr("Can not load the resource")
+				printerr("Can not load the resource.")
 				return
 			1: # THREAD_LOAD_IN_PROGRESS
 				if path_to_progress_bar != "":
 					loading_screen_instance.get_node(path_to_progress_bar).value = load_progress[0]
 			2: # THREAD_LOAD_FAILED
-				printerr("Loading failed")
+				printerr("Loading failed.")
 				return
 			3: # THREAD_LOAD_LOADED
 				var next_scene_instance = ResourceLoader.load_threaded_get(path).instantiate()
