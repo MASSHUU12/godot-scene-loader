@@ -6,10 +6,6 @@
 
 ## Features
 
-This project introduces smooth switching between scenes via loading screens.
-
-The project includes:
-
 - Scene Loader singleton
 - Default loading screen
 - Support for custom loading screens
@@ -19,11 +15,7 @@ The project includes:
 
 > Note: It is best to set the configuration at the beginning of the program, for example, in the main menu, or in another master scene.
 
-The extension has three variables to adjust its behavior: `_scenes`, `_path_to_progress_bar` and `_loading_screen`.
-
-You can change them via the `SceneLoader.set_configuration(_scenes, _path_to_progress_bar, _loading_screen)` function.
-
-`_path_to_progress_bar` and `_loading_screen` are optional.
+You can configure the extension via the `SceneLoader.set_configuration(_scenes, _path_to_progress_bar, _loading_screen)` function.
 
 ### _scenes
 
