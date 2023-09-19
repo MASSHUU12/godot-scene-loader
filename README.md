@@ -41,15 +41,22 @@ The path to the `progress bar` in the `loading screen`, if you pass it, the prog
 
 If you don't want to use the default built-in loading screen, you can create your own and pass the path to it in the configuration.
 
+You can find more information [here](#creating-custom-loading-screen)
+
+## Creating custom loading screen
+
 The custom loading screen must always call the `safe_to_load` signal because `SceneLoader` will wait to load the scene until this signal is transmitted.
 
 With this signal, you can start loading a new scene only when the game is ready for it (for example, when the loading screen manages to appear and cover everything).
+
+In addition, your loading screen must include the `loading_finished` signal.
+This signal will be called by the extension when the scene is loaded, so you know when to hide the loading screen or when to perform other actions.
 
 ## Usage
 
 To switch between scenes using the loading screen, just use the `SceneLoder.load_scene()` function.
 
-The first argument will always be the `self` keyword, while the second argument can be the `alias` of the scene, or the `path` to it, for example:
+The first argument will be the reference to the scene you want to unload, while the second argument can be the `alias` of the scene, or the `path` to it, for example:
 
 ```ts
 // Using alias
