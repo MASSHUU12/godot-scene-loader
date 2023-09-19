@@ -5,10 +5,10 @@ var path_to_progress_bar: String = "Container/ProgressBar"
 var loading_screen: Resource  = preload("res://addons/scene_loader/default_loading_screen/DefaultLoadingScreen.tscn")
 
 enum ThreadStatus {
-    INVALID_RESOURCE = 0, # THREAD_LOAD_INVALID_RESOURCE
-    IN_PROGRESS = 1, # THREAD_LOAD_IN_PROGRESS
-    FAILED = 2, # THREAD_LOAD_FAILED
-    LOADED = 3 # THREAD_LOAD_LOADED
+	INVALID_RESOURCE = 0, # THREAD_LOAD_INVALID_RESOURCE
+	IN_PROGRESS = 1, # THREAD_LOAD_IN_PROGRESS
+	FAILED = 2, # THREAD_LOAD_FAILED
+	LOADED = 3 # THREAD_LOAD_LOADED
 }
 
 
@@ -29,7 +29,7 @@ func set_configuration(config: Dictionary) -> void:
 		path_to_progress_bar = config["path_to_progress_bar"]
 
 	if config.has("loading_screen"):
-		loading_screen = config["loading_screen"]
+		loading_screen = load(config["loading_screen"])
 
 
 ## Loads a scene asynchronously and replaces the current scene with it.

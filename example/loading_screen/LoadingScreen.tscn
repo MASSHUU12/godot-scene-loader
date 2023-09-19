@@ -176,7 +176,7 @@ libraries = {
 }
 
 [node name="Noise" type="AnimationPlayer" parent="."]
-autoplay = "noise"
+autoplay = "RESET"
 libraries = {
 "": SubResource("AnimationLibrary_1pp8q")
 }
