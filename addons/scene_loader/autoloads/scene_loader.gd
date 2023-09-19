@@ -8,17 +8,16 @@ var loading_screen: Resource  = preload("res://addons/scene_loader/default_loadi
 ## Sets the configuration for the scene loader.
 ##
 ## Arguments:
-## - _scenes: A dictionary containing the scene names and paths.
-## - _path_to_progress_bar: The path to the progress bar node in the loading screen.
-## - _loading_screen: The path to the loading screen scene.
+## - config: A dictionary containing the configuration for the scene loader.
+##    - scenes: A dictionary containing the scene names and paths.
+##    - path_to_progress_bar: The path to the progress bar node in the loading screen.
+##    - loading_screen: The path to the loading screen scene.
 ##
 ## Returns: None
-func set_configuration(_scenes: Dictionary, _path_to_progress_bar := "", _loading_screen := "") -> void:
-	scenes = _scenes
-	path_to_progress_bar = _path_to_progress_bar
-
-	if _loading_screen != "":
-		loading_screen = load(_loading_screen)
+func set_configuration(config: Dictionary) -> void:
+	scenes = config["scenes"] if config.has("scenes") else scenes
+	path_to_progress_bar = config["path_to_progress_bar"] if config.has("path_to_progress_bar") else path_to_progress_bar
+	loading_screen = load(config["loading_screen"]) if config.has("loading_screen") else loading_screen
 
 
 ## Loads a scene asynchronously and replaces the current scene with it.
