@@ -15,11 +15,13 @@
 
 > Note: It is best to set the configuration at the beginning of the program, for example, in the main menu, or in another master scene.
 
-You can configure the extension via the `SceneLoader.set_configuration(_scenes, _path_to_progress_bar, _loading_screen)` function.
+You can configure the extension via the `set_configuration(config: Dictionary)` function.
 
-### \_scenes
+You can configure the following options:
 
-Variable accepting `dictionary` storing aliases to scenes in the form of `name-path`, for example:
+### scenes
+
+Accepts `dictionary` storing aliases to scenes in the form of `name-path`, for example:
 
 ```json
 {
@@ -31,11 +33,11 @@ Variable accepting `dictionary` storing aliases to scenes in the form of `name-p
 
 That way you don't have to use paths and when the path changes you just have to change it in one place.
 
-### \_path_to_progress_bar
+### path_to_progress_bar
 
 The path to the `progress bar` in the `loading screen`, if you pass it, the progress bar will be updated with the current loading status.
 
-### \_loading_screen
+### loading_screen
 
 If you don't want to use the default built-in loading screen, you can create your own and pass the path to it in the configuration.
 
