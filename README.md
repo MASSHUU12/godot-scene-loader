@@ -63,6 +63,35 @@ After that, all you have to do is press `F5` to launch the entire project.
 
 You can also use this to launch your entire project.
 
+This will only work for pure projects in GDScript.
+
+### Debugging C# projects
+
+If you want to debug projects written with `C#` you need to create a `tasks.json` file in the `.vscode` folder.
+
+The file should look like this:
+
+```json
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dotnet",
+			"task": "build",
+			"problemMatcher": ["$msCompile"],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"label": "build"
+		}
+	]
+}
+```
+
+You also need to slightly change the `launch.json` file.
+Just add `"preLaunchTask": "build",` to the configuration.
+
 ## License
 
 Licensed under [MIT license](./LICENSE).
