@@ -62,13 +62,12 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 				return
 			ThreadStatus.IN_PROGRESS:
 				update_progress_bar(loading_screen_instance, path_to_progress_bar, load_progress[0])
+				return
 			ThreadStatus.FAILED:
 				printerr("Loading failed.")
 				return
 			ThreadStatus.LOADED:
-				var next_scene_instance = ResourceLoader.load_threaded_get(path).instantiate()
-				get_tree().get_root().call_deferred("add_child", next_scene_instance)
-				loading_screen_instance.loading_finished.emit()
+				load_next_scene(path, loading_screen_instance)
 				return
 
 
@@ -118,3 +117,16 @@ func update_progress_bar(loading_screen_instance: Node, path_to_progress_bar: St
 		printerr("Path to progress bar is invalid.")
 	else:
 		progress_bar.value = load_progress
+
+
+## Loads the next scene.
+##
+## Arguments:
+## - path: The path to the scene file.
+## - loading_screen_instance: The loading screen instance.
+##
+## Returns: None
+func load_next_scene(path: String, loading_screen_instance: Node) -> void:
+	var next_scene_instance = ResourceLoader.load_threaded_get(path).instantiate()
+	get_tree().get_root().call_deferred("add_child", next_scene_instance)
+	loading_screen_instance.loading_finished.emit()
