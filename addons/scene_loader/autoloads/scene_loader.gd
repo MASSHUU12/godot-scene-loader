@@ -22,9 +22,14 @@ enum ThreadStatus {
 ##
 ## Returns: None
 func set_configuration(config: Dictionary) -> void:
-	scenes = config["scenes"] if config.has("scenes") else scenes
-	path_to_progress_bar = config["path_to_progress_bar"] if config.has("path_to_progress_bar") else path_to_progress_bar
-	loading_screen = load(config["loading_screen"]) if config.has("loading_screen") else loading_screen
+	if config.has("scenes"):
+		scenes = config["scenes"]
+
+	if config.has("path_to_progress_bar"):
+		path_to_progress_bar = config["path_to_progress_bar"]
+
+	if config.has("loading_screen"):
+		loading_screen = config["loading_screen"]
 
 
 ## Loads a scene asynchronously and replaces the current scene with it.

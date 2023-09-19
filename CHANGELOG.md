@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 -   Refactored code.
 -   Improved way of configuring the extension.
 -   Updated documentation to reflect changes in the extension.
+-   Now use of progress bar is fully optional.
 
 ## [1.0.1 - 2023-08-11]
 
