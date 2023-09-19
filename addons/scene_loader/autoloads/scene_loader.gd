@@ -4,6 +4,13 @@ var scenes: Dictionary = {}
 var path_to_progress_bar: String = "Container/ProgressBar"
 var loading_screen: Resource  = preload("res://addons/scene_loader/default_loading_screen/DefaultLoadingScreen.tscn")
 
+enum ThreadStatus {
+    INVALID_RESOURCE = 0, # THREAD_LOAD_INVALID_RESOURCE
+    IN_PROGRESS = 1, # THREAD_LOAD_IN_PROGRESS
+    FAILED = 2, # THREAD_LOAD_FAILED
+    LOADED = 3 # THREAD_LOAD_LOADED
+}
+
 
 ## Sets the configuration for the scene loader.
 ##
@@ -45,15 +52,15 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 		var load_status = ResourceLoader.load_threaded_get_status(path, load_progress)
 
 		match load_status:
-			0: # THREAD_LOAD_INVALID_RESOURCE
+			ThreadStatus.INVALID_RESOURCE:
 				printerr("Can not load the resource.")
 				return
-			1: # THREAD_LOAD_IN_PROGRESS
+			ThreadStatus.IN_PROGRESS:
 				update_progress_bar(loading_screen_instance, path_to_progress_bar, load_progress[0])
-			2: # THREAD_LOAD_FAILED
+			ThreadStatus.FAILED:
 				printerr("Loading failed.")
 				return
-			3: # THREAD_LOAD_LOADED
+			ThreadStatus.LOADED:
 				var next_scene_instance = ResourceLoader.load_threaded_get(path).instantiate()
 				get_tree().get_root().call_deferred("add_child", next_scene_instance)
 				loading_screen_instance.loading_finished.emit()
@@ -95,12 +102,14 @@ func find_scene_path(next_scene: String) -> String:
 ## - path_to_progress_bar: The path to the progress bar node in the loading screen.
 ## - load_progress: The progress of the loading process.
 ##
-## Returns: Void
+## Returns: None
 func update_progress_bar(loading_screen_instance: Node, path_to_progress_bar: String, load_progress: int) -> void:
-	if path_to_progress_bar != "":
-		var progress_bar := loading_screen_instance.get_node(path_to_progress_bar)
+	if path_to_progress_bar == "":
+		return
 
-		if progress_bar == null:
-			printerr("Path to progress bar is invalid.")
-		else:
-			progress_bar.value = load_progress
+	var progress_bar := loading_screen_instance.get_node(path_to_progress_bar)
+
+	if progress_bar == null:
+		printerr("Path to progress bar is invalid.")
+	else:
+		progress_bar.value = load_progress
