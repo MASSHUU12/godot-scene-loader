@@ -56,7 +56,7 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 			3: # THREAD_LOAD_LOADED
 				var next_scene_instance = ResourceLoader.load_threaded_get(path).instantiate()
 				get_tree().get_root().call_deferred("add_child", next_scene_instance)
-				loading_screen_instance.fade_out_loading_screen()
+				loading_screen_instance.loading_finished.emit()
 				return
 
 

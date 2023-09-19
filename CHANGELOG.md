@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 -   Plugin now supports debugging via VScode (you can also use this to debug your whole project, more in README).
 -   Documentation for all functions.
+-   Extension now emits `loading_finished` signal in loading screen when loading is finished.
 
 ### Changed
 
