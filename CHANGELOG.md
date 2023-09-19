@@ -7,6 +7,11 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 -   Plugin now supports debugging via VScode (you can also use this to debug your whole project, more in README).
+-   Documentation for all functions.
+
+### Changed
+
+-   Refactored code.
 
 ## [1.0.1 - 2023-08-11]
 
