@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 -   Refactored code.
+-   Improved way of configuring the extension.
+-   Updated documentation to reflect changes in the extension.
 
 ## [1.0.1 - 2023-08-11]
 
