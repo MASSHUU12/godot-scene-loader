@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+[1.2.0 - 2023-11-06]
+
+### Added
+
+-   Support for Godot 4.2.
+
+### Changed
+
+-   Default loading screen now have dark background.
+
 [1.1.0 - 2023-09-19]
 
 ### Added
