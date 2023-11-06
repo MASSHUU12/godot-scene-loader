@@ -1,12 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7x8j0revg2us"]
+[gd_scene load_steps=7 format=3 uid="uid://b7x8j0revg2us"]
 
 [ext_resource type="Script" path="res://addons/scene_loader/default_loading_screen/DefaultLoadingScreen.gd" id="1_k00ns"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_wpqoa"]
-frequency = 0.3
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mqclx"]
-noise = SubResource("FastNoiseLite_wpqoa")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23wes"]
 bg_color = Color(1, 1, 1, 1)
@@ -82,44 +76,6 @@ _data = {
 "fade_out": SubResource("Animation_lhrmh")
 }
 
-[sub_resource type="Animation" id="Animation_ny4cq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Container/Background:texture:noise:seed")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_l2iiv"]
-resource_name = "noise"
-length = 3.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Container/Background:texture:noise:seed")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 2,
-"values": [0, 48]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_1pp8q"]
-_data = {
-"RESET": SubResource("Animation_ny4cq"),
-"noise": SubResource("Animation_l2iiv")
-}
-
 [node name="LoadingScreen" type="CanvasLayer"]
 script = ExtResource("1_k00ns")
 
@@ -131,14 +87,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="TextureRect" parent="Container"]
+[node name="ColorRect" type="ColorRect" parent="Container"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("NoiseTexture2D_mqclx")
+color = Color(0.054902, 0.054902, 0.054902, 1)
 
 [node name="Title" type="Label" parent="Container"]
 layout_mode = 1
@@ -170,13 +126,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_23wes")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "fade_in"
 libraries = {
 "": SubResource("AnimationLibrary_uwjus")
 }
-
-[node name="Noise" type="AnimationPlayer" parent="."]
-autoplay = "noise"
-libraries = {
-"": SubResource("AnimationLibrary_1pp8q")
-}
+autoplay = "fade_in"
