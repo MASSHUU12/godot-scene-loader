@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ckmuw1sdthrj0"]
+[gd_scene load_steps=12 format=3 uid="uid://ckmuw1sdthrj0"]
 
 [ext_resource type="Script" path="res://example/scenes/scene2/Scene2.gd" id="1_2boim"]
 
@@ -8,10 +8,32 @@ roughness = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jdyci"]
 material = SubResource("StandardMaterial3D_p3j10")
-size = Vector2(128, 128)
+size = Vector2(256, 256)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gv3tk"]
 data = PackedVector3Array(64, 0, 64, -64, 0, 64, 64, 0, -64, -64, 0, 64, -64, 0, -64, 64, 0, -64)
+
+[sub_resource type="Environment" id="Environment_btkcu"]
+background_mode = 1
+tonemap_mode = 3
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+glow_levels/3 = 16.0
+glow_levels/5 = 16.0
+glow_levels/7 = 16.0
+glow_normalized = true
+glow_bloom = 0.16
+glow_blend_mode = 1
+volumetric_fog_sky_affect = 0.0
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_opy7d"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 25.0
+dof_blur_near_enabled = true
+dof_blur_near_distance = 30.0
+dof_blur_amount = 0.05
 
 [sub_resource type="Curve" id="Curve_ww8dl"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.779221, 0.694737), -1.26082, -1.26082, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -47,13 +69,6 @@ height = 0.6
 radial_segments = 32
 rings = 16
 
-[sub_resource type="Environment" id="Environment_c44yl"]
-background_mode = 1
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
-glow_enabled = true
-
 [node name="Scene2" type="Node3D"]
 script = ExtResource("1_2boim")
 
@@ -65,16 +80,18 @@ mesh = SubResource("PlaneMesh_jdyci")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_gv3tk")
 
-[node name="Floor2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 20, 0)
-mesh = SubResource("PlaneMesh_jdyci")
+[node name="Env" type="Node3D" parent="."]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor2"]
+[node name="Camera3D" type="Camera3D" parent="Env"]
+transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 1, 60)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_gv3tk")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = SubResource("Environment_btkcu")
+camera_attributes = SubResource("CameraAttributesPractical_opy7d")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="Particles" type="Node3D" parent="."]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Particles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 amount = 1024
 lifetime = 5.0
@@ -83,19 +100,13 @@ visibility_aabb = AABB(-64, -10.1599, -64, 128.001, 20.3197, 128)
 process_material = SubResource("ParticleProcessMaterial_okr1h")
 draw_pass_1 = SubResource("SphereMesh_qgodp")
 
-[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Particles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.828682, 0)
 size = Vector3(54.2485, 1.6487, 129.756)
 
-[node name="GPUParticlesCollisionBox3D2" type="GPUParticlesCollisionBox3D" parent="."]
+[node name="GPUParticlesCollisionBox3D2" type="GPUParticlesCollisionBox3D" parent="Particles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.3696, 0)
 size = Vector3(54.2485, 1.6487, 129.756)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 1, 60)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_c44yl")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

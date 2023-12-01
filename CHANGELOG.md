@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-[1.2.0 - 2023-11-06]
+## [1.2.1 - 2023-12-01]
+
+### Changed
+
+-   Updated main menu.
+-   Updated first scene.
+-   Update second scene.
+
+## [1.2.0 - 2023-11-06]
 
 ### Added
 
@@ -12,7 +20,7 @@ All notable changes to this project will be documented in this file.
 
 -   Default loading screen now have dark background.
 
-[1.1.0 - 2023-09-19]
+## [1.1.0 - 2023-09-19]
 
 ### Added
 

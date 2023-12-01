@@ -5,6 +5,10 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_illpf"]
 size = Vector2(128, 128)
 
+[sub_resource type="Environment" id="Environment_0ndt4"]
+background_mode = 1
+tonemap_mode = 3
+
 [sub_resource type="Animation" id="Animation_6d2n1"]
 length = 0.001
 tracks/0/type = "value"
@@ -43,34 +47,33 @@ _data = {
 "rotate": SubResource("Animation_j6d57")
 }
 
-[sub_resource type="Environment" id="Environment_0ndt4"]
-background_mode = 1
-ambient_light_source = 2
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
-
 [node name="Scene1" type="Node3D"]
 script = ExtResource("1_yyexy")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 text = "Lorem ipsum dolor sit amet"
-
-[node name="Camera3D" type="Camera3D" parent="."]
+font_size = 24
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -5)
 mesh = SubResource("PlaneMesh_illpf")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
+[node name="Env" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = SubResource("Environment_0ndt4")
+
+[node name="Camera3D" type="Camera3D" parent="Env"]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Env"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3, -5)
 light_energy = 2.0
 shadow_enabled = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,7 +81,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Buttons" type="HBoxContainer" parent="CanvasLayer/Control"]
+[node name="Buttons" type="HBoxContainer" parent="UI/Control"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -90,24 +93,21 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 
-[node name="MainMenu" type="Button" parent="CanvasLayer/Control/Buttons"]
+[node name="MainMenu" type="Button" parent="UI/Control/Buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Main Menu"
 
-[node name="NextScene" type="Button" parent="CanvasLayer/Control/Buttons"]
+[node name="NextScene" type="Button" parent="UI/Control/Buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Next Scene"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "rotate"
 libraries = {
 "": SubResource("AnimationLibrary_4foqp")
 }
+autoplay = "rotate"
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0ndt4")
-
-[connection signal="pressed" from="CanvasLayer/Control/Buttons/MainMenu" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/Buttons/NextScene" to="." method="_on_next_scene_pressed"]
+[connection signal="pressed" from="UI/Control/Buttons/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="UI/Control/Buttons/NextScene" to="." method="_on_next_scene_pressed"]
