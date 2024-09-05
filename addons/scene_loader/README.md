@@ -17,7 +17,7 @@
 
 ## Documentation
 
-See the [docs](./addons/scene_loader/docs/) folder.
+See the [docs](./docs/) folder.
 
 ## License
 

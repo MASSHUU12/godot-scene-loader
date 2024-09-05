@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - The `loading_finished` signal from now on returns the status
 with which the scene loading was completed.
 - Improved error messages.
+- Moved docs to the plugin folder.
 
 ## [1.2.2 - 2024-05-13]
 
