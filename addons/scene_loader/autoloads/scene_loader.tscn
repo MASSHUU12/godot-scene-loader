@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmvg3p101wgvq"]
+
+[ext_resource type="Script" path="res://addons/scene_loader/autoloads/scene_loader.gd" id="1_j8nsu"]
+
+[node name="SceneLoader" type="Node"]
+script = ExtResource("1_j8nsu")
