@@ -1,5 +1,7 @@
 extends Node
 
+signal loading_finished(status: ThreadStatus)
+
 var scenes: Dictionary = {}
 var path_to_progress_bar: String = "Container/ProgressBar"
 var loading_screen: Resource = preload("uid://du2tuc2v8m2wd")
@@ -56,6 +58,7 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 
 		match load_status:
 			ThreadStatus.INVALID_RESOURCE:
+				loading_finished.emit(ThreadStatus.INVALID_RESOURCE)
 				printerr("Can not load the resource.")
 				return
 			ThreadStatus.IN_PROGRESS:
@@ -65,6 +68,7 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 					load_progress[0]
 				)
 			ThreadStatus.FAILED:
+				loading_finished.emit(ThreadStatus.FAILED)
 				printerr("Loading failed.")
 				return
 			ThreadStatus.LOADED:
@@ -130,4 +134,4 @@ func update_progress_bar(
 func load_next_scene(path: String, loading_screen_instance: Node) -> void:
 	var next_scene_ins = ResourceLoader.load_threaded_get(path).instantiate()
 	get_tree().get_root().call_deferred("add_child", next_scene_ins)
-	loading_screen_instance.loading_finished.emit()
+	loading_finished.emit(ThreadStatus.LOADED)
