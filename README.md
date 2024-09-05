@@ -1,7 +1,8 @@
 <div align="center">
-	<h3>Godot Scene Loader</h3>
-	<p />
-	<p>Basic scene loader for Godot 4 with support for loading screens.</p>
+  <img height=128 src="./addons/scene_loader/docs/assets/icon.svg" alt="Project icon" />
+  <h3>Godot Scene Loader</h3>
+  <p />
+  <p>Basic scene loader for Godot 4 with support for loading screens.</p>
 </div>
 
 ## Prerequisites
