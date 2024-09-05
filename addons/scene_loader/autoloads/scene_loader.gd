@@ -32,20 +32,14 @@ func set_configuration(config: Dictionary) -> void:
 	if config.has("loading_screen"):
 		loading_screen = load(config["loading_screen"])
 
-## Loads a scene asynchronously and replaces the current scene with it.
-##
-## Arguments:
-## - current_scene: The current scene to be replaced.
-## - next_scene: The path to the scene to be loaded.
-##
-## Returns: None
+
 func load_scene(current_scene: Node, next_scene: String) -> void:
 	var loading_screen_instance: Node = initialize_loading_screen()
 	var path: String = find_scene_path(next_scene)
 
 	# Load scene
 	if ResourceLoader.load_threaded_request(path) != OK:
-		printerr("Scene %s does not exist." % path)
+		printerr("Scene \"%s\" does not exist." % path)
 		return
 
 	# Wait for loading screen to be ready
@@ -59,7 +53,7 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 		match load_status:
 			ThreadStatus.INVALID_RESOURCE:
 				loading_finished.emit(ThreadStatus.INVALID_RESOURCE)
-				printerr("Can not load the resource.")
+				printerr("[SceneLoader] Can not load the resource.")
 				return
 			ThreadStatus.IN_PROGRESS:
 				update_progress_bar(
@@ -69,46 +63,31 @@ func load_scene(current_scene: Node, next_scene: String) -> void:
 				)
 			ThreadStatus.FAILED:
 				loading_finished.emit(ThreadStatus.FAILED)
-				printerr("Loading failed.")
+				printerr("[SceneLoader] Failed to load \"%s\"." % path)
 				return
 			ThreadStatus.LOADED:
 				load_next_scene(path, loading_screen_instance)
 				return
 
-## Loads a scene asynchronously and adds it to the current scene.
-##
-## Returns: Loading screen instance
+
 func initialize_loading_screen() -> Node:
 	var loading_screen_instance: Node = loading_screen.instantiate()
 	get_tree().get_root().call_deferred("add_child", loading_screen_instance)
 
 	return loading_screen_instance
 
-## Finds the path to the scene file.
-##
-## Arguments:
-## - next_scene: The path to the scene to be loaded.
-##
-## Returns: The path to the scene file.
+
 func find_scene_path(next_scene: String) -> String:
 	# Find path to the scene file
 	var path: String = scenes[next_scene] if scenes.has(next_scene) else next_scene
 
-	# Validate path
 	if not ResourceLoader.exists(path):
-		printerr("Scene %s does not exist." % path)
+		printerr("[SceneLoader] Scene \"%s\" does not exist." % path)
 		return ""
 
 	return path
 
-## Updates the progress bar in the loading screen.
-##
-## Arguments:
-## - loading_screen_instance: The loading screen instance.
-## - path_to_progress_bar: The path to the progress bar node in the loading screen.
-## - load_progress: The progress of the loading process.
-##
-## Returns: None
+
 func update_progress_bar(
 	loading_screen_instance: Node,
 	path_to_progress_bar: String,
@@ -120,17 +99,14 @@ func update_progress_bar(
 	var progress_bar := loading_screen_instance.get_node(path_to_progress_bar)
 
 	if progress_bar == null:
-		printerr("Path to progress bar is invalid.")
+		printerr(
+			"[SceneLoader] Path to progress bar is invalid: %s."
+			% path_to_progress_bar
+		)
 	else:
 		progress_bar.value = load_progress
 
-## Loads the next scene.
-##
-## Arguments:
-## - path: The path to the scene file.
-## - loading_screen_instance: The loading screen instance.
-##
-## Returns: None
+
 func load_next_scene(path: String, loading_screen_instance: Node) -> void:
 	var next_scene_ins = ResourceLoader.load_threaded_get(path).instantiate()
 	get_tree().get_root().call_deferred("add_child", next_scene_ins)

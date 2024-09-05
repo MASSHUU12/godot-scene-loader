@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+
+- Plugin now works from custom locations.
+- Moved `loading_finished` signal from loading screen to SceneLoader.
+- The `loading_finished` signal from now on returns the status
+with which the scene loading was completed.
+- Improved error messages.
+
 ## [1.2.2 - 2024-05-13]
 
 ### Fixed
